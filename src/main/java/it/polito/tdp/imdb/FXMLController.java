@@ -35,10 +35,10 @@ public class FXMLController {
     private Button btnCercaAffini; // Value injected by FXMLLoader
 
     @FXML // fx:id="boxAnno"
-    private ComboBox<?> boxAnno; // Value injected by FXMLLoader
+    private ComboBox<Integer> boxAnno; // Value injected by FXMLLoader
 
     @FXML // fx:id="boxRegista"
-    private ComboBox<?> boxRegista; // Value injected by FXMLLoader
+    private ComboBox<Integer> boxRegista; // Value injected by FXMLLoader
 
     @FXML // fx:id="txtAttoriCondivisi"
     private TextField txtAttoriCondivisi; // Value injected by FXMLLoader
@@ -48,12 +48,17 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
-
+     int anno = boxAnno.getValue();
+     this.model.creaGrafo(anno);
+     txtResult.appendText("Vertici: "+this.model.nVertici()+" e archi: "+this.model.nArchi()+"\n");
+     boxRegista.getItems().clear();
+     boxRegista.getItems().addAll(this.model.getVertici());
     }
 
     @FXML
     void doRegistiAdiacenti(ActionEvent event) {
-
+     Integer regista = boxRegista.getValue();
+     txtResult.appendText(this.model.getAdiacenti(regista));
     }
 
     @FXML
@@ -76,6 +81,10 @@ public class FXMLController {
    public void setModel(Model model) {
     	
     	this.model = model;
+    	boxAnno.getItems().clear();
+    	boxAnno.getItems().add(2004);
+    	boxAnno.getItems().add(2005);
+    	boxAnno.getItems().add(2006);
     	
     }
     
